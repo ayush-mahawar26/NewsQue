@@ -50,22 +50,9 @@ class _NewsHomeScreenState extends State<NewsHomeScreen> {
                     fontWeight: FontWeight.w800,
                     fontSize: 25),
               ),
-
               SizedBox(
                 height: 20,
               ),
-
-              // ElevatedButton(
-              //     onPressed: () async {
-              //       await GettingNewsFromApi().getmyNews(categoryOfNews);
-              //       for (int i = 0;
-              //           i < GettingNewsFromApi.lstOfNews.length;
-              //           i++) {
-              //         print(GettingNewsFromApi.lstOfNews[i].authorName);
-              //       }
-              //     },
-              //     child: Text("data"))
-
               Expanded(
                 child: Center(
                   child: FutureBuilder(

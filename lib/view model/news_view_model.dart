@@ -18,7 +18,8 @@ class NewsViewModel {
               image: (imgUrl != "null")
                   ? NetworkImage(imgUrl)
                   : NetworkImage(
-                      "https://images.unsplash.com/photo-1636562335966-cd8243556822?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80"),
+                      '''https://images.unsplash.com/photo-1636562335966-cd8243556822?ixid=MnwxMjA3fDB8M
+                          HxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80'''),
               fit: BoxFit.cover,
               width: MediaQuery.of(context).size.width - 50,
               height: MediaQuery.of(context).size.height * 0.3,
