@@ -13,7 +13,7 @@ class GettingNewsFromApi {
     String key = apiKey;
 
     Response res = await get(Uri.parse(
-        'https://newsapi.org/v2/top-headlines?country=us&category=$catergory&apiKey=$key'));
+        'https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=$key'));
 
     var decodedNewsData = jsonDecode(res.body);
     List newsList = decodedNewsData['articles'];

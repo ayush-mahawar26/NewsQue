@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:news_app/Service/news_api_data.dart';
@@ -23,7 +24,8 @@ class NewsHomeScreen extends StatefulWidget {
 }
 
 class _NewsHomeScreenState extends State<NewsHomeScreen> {
-  String categoryOfNews = "Business Category";
+  String categoryOfNews = "business";
+  String label = "Business Category";
 
   @override
   Widget build(BuildContext context) {
@@ -34,21 +36,54 @@ class _NewsHomeScreenState extends State<NewsHomeScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                "NewsQue",
-                style: TextStyle(
-                    color: Colors.black,
-                    fontFamily: GoogleFonts.montserrat().fontFamily,
-                    fontWeight: FontWeight.w800,
-                    fontSize: 40),
-              ),
-              Text(
-                categoryOfNews,
-                style: TextStyle(
-                    color: Colors.grey[600],
-                    fontFamily: GoogleFonts.montserrat().fontFamily,
-                    fontWeight: FontWeight.w800,
-                    fontSize: 25),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "NewsQue",
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontFamily: GoogleFonts.montserrat().fontFamily,
+                            fontWeight: FontWeight.w800,
+                            fontSize: 40),
+                      ),
+                      Text(
+                        label,
+                        style: TextStyle(
+                            color: Colors.grey[600],
+                            fontFamily: GoogleFonts.montserrat().fontFamily,
+                            fontWeight: FontWeight.w800,
+                            fontSize: 25),
+                      ),
+                    ],
+                  ),
+                  ElevatedButton.icon(
+                      onPressed: () {
+                        print("Filtered");
+                      },
+                      style: ButtonStyle(
+                          shape: MaterialStateProperty.all(
+                            RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(20)),
+                                side: BorderSide(width: 1.0)),
+                          ),
+                          elevation: MaterialStateProperty.all(0),
+                          backgroundColor:
+                              MaterialStateProperty.all(Colors.grey[200])),
+                      icon: Icon(Icons.filter_list, color: Colors.black),
+                      label: Text(
+                        "Filter",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.w600,
+                          fontFamily: GoogleFonts.poppins().fontFamily,
+                        ),
+                      ))
+                ],
               ),
               SizedBox(
                 height: 20,
