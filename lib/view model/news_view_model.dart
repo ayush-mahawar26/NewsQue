@@ -40,7 +40,7 @@ class NewsViewModel {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Text(
-                    "By - $author",
+                    (author == "null") ? "By - Unknown" : "By - $author",
                     style: TextStyle(
                       color: Colors.grey[600],
                       fontSize: 15,
