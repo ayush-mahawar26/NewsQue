@@ -1,5 +1,4 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -12,23 +11,28 @@ class HomeScr extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return NewsHomeScreen();
+    return NewsHomeScreen(
+      categoryOfNews: "business",
+      label: "Buisness NewsApp",
+    );
   }
 }
 
 class NewsHomeScreen extends StatefulWidget {
-  const NewsHomeScreen({Key? key}) : super(key: key);
+  String categoryOfNews;
+  String label;
+  NewsHomeScreen({Key? key, required this.categoryOfNews, required this.label})
+      : super(key: key);
 
   @override
   _NewsHomeScreenState createState() => _NewsHomeScreenState();
 }
 
 class _NewsHomeScreenState extends State<NewsHomeScreen> {
-  String categoryOfNews = "business";
-  String label = "Business Category";
-
   @override
   Widget build(BuildContext context) {
+    String categoryOfNews = widget.categoryOfNews;
+    String label = widget.label;
     return SafeArea(
       child: Scaffold(
         body: Padding(
@@ -51,7 +55,7 @@ class _NewsHomeScreenState extends State<NewsHomeScreen> {
                             fontSize: 40),
                       ),
                       Text(
-                        label,
+                        label.toString(),
                         style: TextStyle(
                             color: Colors.grey[600],
                             fontFamily: GoogleFonts.montserrat().fontFamily,
@@ -60,29 +64,6 @@ class _NewsHomeScreenState extends State<NewsHomeScreen> {
                       ),
                     ],
                   ),
-                  ElevatedButton.icon(
-                      onPressed: () {
-                        print("Filtered");
-                      },
-                      style: ButtonStyle(
-                          shape: MaterialStateProperty.all(
-                            RoundedRectangleBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(20)),
-                                side: BorderSide(width: 1.0)),
-                          ),
-                          elevation: MaterialStateProperty.all(0),
-                          backgroundColor:
-                              MaterialStateProperty.all(Colors.grey[200])),
-                      icon: Icon(Icons.filter_list, color: Colors.black),
-                      label: Text(
-                        "Filter",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.w600,
-                          fontFamily: GoogleFonts.poppins().fontFamily,
-                        ),
-                      ))
                 ],
               ),
               SizedBox(
@@ -91,7 +72,8 @@ class _NewsHomeScreenState extends State<NewsHomeScreen> {
               Expanded(
                 child: Center(
                   child: FutureBuilder(
-                    future: GettingNewsFromApi().getmyNews(categoryOfNews),
+                    future: GettingNewsFromApi()
+                        .getmyNews(categoryOfNews.toString()),
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.done) {
                         print("Data is Available");

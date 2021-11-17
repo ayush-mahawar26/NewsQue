@@ -3,7 +3,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart';
-import 'package:news_app/api_key.dart';
+import 'package:news_app/Service/api_key.dart';
 import 'package:news_app/model/news_model.dart';
 
 class GettingNewsFromApi {
@@ -13,7 +13,7 @@ class GettingNewsFromApi {
     String key = apiKey;
 
     Response res = await get(Uri.parse(
-        'https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=$key'));
+        'https://newsapi.org/v2/top-headlines?country=in&category=business&apiKey=$key'));
 
     var decodedNewsData = jsonDecode(res.body);
     List newsList = decodedNewsData['articles'];
