@@ -2,37 +2,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:news_app/Service/news_api_data.dart';
+import 'package:news_app/Provider/news_provider.dart';
 import 'package:news_app/model/news_model.dart';
+import 'package:news_app/view%20model/dailog_model.dart';
 import 'package:news_app/view%20model/news_view_model.dart';
+import 'package:provider/provider.dart';
 
 class HomeScr extends StatelessWidget {
   const HomeScr({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return NewsHomeScreen(
-      categoryOfNews: "business",
-      label: "Buisness NewsApp",
-    );
-  }
-}
-
-class NewsHomeScreen extends StatefulWidget {
-  String categoryOfNews;
-  String label;
-  NewsHomeScreen({Key? key, required this.categoryOfNews, required this.label})
-      : super(key: key);
-
-  @override
-  _NewsHomeScreenState createState() => _NewsHomeScreenState();
-}
-
-class _NewsHomeScreenState extends State<NewsHomeScreen> {
-  @override
-  Widget build(BuildContext context) {
-    String categoryOfNews = widget.categoryOfNews;
-    String label = widget.label;
+    NewsProvider newsProvider = Provider.of<NewsProvider>(context);
     return SafeArea(
       child: Scaffold(
         body: Padding(
@@ -54,16 +35,46 @@ class _NewsHomeScreenState extends State<NewsHomeScreen> {
                             fontWeight: FontWeight.w800,
                             fontSize: 40),
                       ),
-                      Text(
-                        label.toString(),
-                        style: TextStyle(
-                            color: Colors.grey[600],
-                            fontFamily: GoogleFonts.montserrat().fontFamily,
-                            fontWeight: FontWeight.w800,
-                            fontSize: 25),
+                      Consumer<NewsProvider>(
+                        builder: (context, newsProvider, _) => Text(
+                          newsProvider.categoryLabel,
+                          style: TextStyle(
+                              color: Colors.grey[600],
+                              fontFamily: GoogleFonts.montserrat().fontFamily,
+                              fontWeight: FontWeight.w800,
+                              fontSize: 25),
+                        ),
                       ),
                     ],
                   ),
+                  ElevatedButton.icon(
+                      onPressed: () {
+                        // newsProvider.updateWholeNews();
+                        // newsProvider.getmyNews(newsProvider.newsType);
+
+                        showDialog(
+                            context: context, builder: (_) => MyCustomDialog());
+                      },
+                      style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all(Colors.grey[200]),
+                          elevation: MaterialStateProperty.all(2),
+                          // side: MaterialStateProperty.all(BorderSide(width: 2)),
+                          shape: MaterialStateProperty.all(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                          )),
+                      icon:
+                          Icon(Icons.filter_list_outlined, color: Colors.black),
+                      label: Text(
+                        "Filter",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: GoogleFonts.poppins().fontFamily,
+                        ),
+                      ))
                 ],
               ),
               SizedBox(
@@ -71,29 +82,30 @@ class _NewsHomeScreenState extends State<NewsHomeScreen> {
               ),
               Expanded(
                 child: Center(
-                  child: FutureBuilder(
-                    future: GettingNewsFromApi()
-                        .getmyNews(categoryOfNews.toString()),
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.done) {
-                        print("Data is Available");
-                        List<NewsModel> lst = GettingNewsFromApi.lstOfNews;
-                        return Center(
-                            child: ListView.builder(
-                          itemCount: lst.length,
-                          itemBuilder: (context, index) {
-                            return NewsViewModel().newsViewModel(
-                                lst[index].headline,
-                                lst[index].authorName,
-                                lst[index].imgUrl,
-                                lst[index].newsUrl,
-                                context);
-                          },
-                        ));
-                      } else {
-                        return CircularProgressIndicator();
-                      }
-                    },
+                  child: Consumer<NewsProvider>(
+                    builder: (context, newsProvider, _) => FutureBuilder(
+                      future: newsProvider.getmyNews(newsProvider.newsType),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.done) {
+                          print("Data is Available");
+                          List<NewsModel> lst = newsProvider.lstNews;
+                          return Center(
+                              child: ListView.builder(
+                            itemCount: lst.length,
+                            itemBuilder: (context, index) {
+                              return NewsViewModel().newsViewModel(
+                                  lst[index].headline,
+                                  lst[index].authorName,
+                                  lst[index].imgUrl,
+                                  lst[index].newsUrl,
+                                  context);
+                            },
+                          ));
+                        } else {
+                          return CircularProgressIndicator();
+                        }
+                      },
+                    ),
                   ),
                 ),
               )

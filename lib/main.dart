@@ -1,13 +1,20 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, unused_import
 
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:news_app/Provider/news_provider.dart';
 import 'package:news_app/view/home.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   // runApp(DevicePreview(enabled: !kReleaseMode, builder: (context) => MyApp()));
-  runApp(MyApp());
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider<NewsProvider>(create: (_) => NewsProvider())
+    ],
+    child: MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
