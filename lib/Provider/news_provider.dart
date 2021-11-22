@@ -1,19 +1,26 @@
-// ignore_for_file: unused_local_variable
-
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart';
-import 'package:news_app/Service/api_key.dart';
+import 'package:news_app/Provider/api_key.dart';
 import 'package:news_app/model/news_model.dart';
 
-class GettingNewsFromApi {
-  static List<NewsModel> lstOfNews = [];
+class NewsProvider with ChangeNotifier {
+  String categoryLabel = "Business";
+  String newsType = "business";
+  List<NewsModel> lstNews = [];
 
-  getmyNews(String catergory) async {
+  updateWholeNews(String type, String label) {
+    newsType = type;
+    categoryLabel = label;
+    notifyListeners();
+  }
+
+  getmyNews(String category) async {
     String key = apiKey;
-
+    lstNews.clear();
     Response res = await get(Uri.parse(
-        'https://newsapi.org/v2/top-headlines?country=in&category=business&apiKey=$key'));
+        'https://newsapi.org/v2/top-headlines?country=in&category=$category&apiKey=$key'));
 
     var decodedNewsData = jsonDecode(res.body);
     List newsList = decodedNewsData['articles'];
@@ -26,9 +33,8 @@ class GettingNewsFromApi {
           newsUrl: currentNews["url"].toString(),
           imgUrl: currentNews["urlToImage"].toString());
 
-      lstOfNews.add(newsModel);
+      lstNews.add(newsModel);
     }
-
-    return lstOfNews;
+    return 1;
   }
 }
