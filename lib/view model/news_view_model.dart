@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class NewsViewModel {
@@ -14,15 +15,19 @@ class NewsViewModel {
             SizedBox(
               height: 5,
             ),
-            Image(
-              image: (imgUrl != "null")
-                  ? NetworkImage(imgUrl)
-                  : NetworkImage(
-                      '''https://images.unsplash.com/photo-1636562335966-cd8243556822?ixid=MnwxMjA3fDB8M
-                          HxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80'''),
+            CachedNetworkImage(
+              height: MediaQuery.of(context).size.height * 0.2,
+              progressIndicatorBuilder: (context, url, downloadProgress) =>
+                  Center(
+                      child: CircularProgressIndicator(
+                          value: downloadProgress.progress)),
+              imageUrl: (imgUrl == "null")
+                  ? '''https://images.unsplash.com/photo-1529173009247-f9876ff
+                  9e4c8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTl8fGV2ZW5
+                  pbmd8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60'''
+                  : imgUrl,
               fit: BoxFit.cover,
-              width: MediaQuery.of(context).size.width - 50,
-              height: MediaQuery.of(context).size.height * 0.3,
+              errorWidget: (context, url, error) => Icon(Icons.error),
             ),
             Container(
               padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
