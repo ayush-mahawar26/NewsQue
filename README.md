@@ -10,6 +10,7 @@ Open And read the whole News By Clicking On it .
 
 ## Screenshots
 
+<img src = "https://github.com/ayush-mahawar26/NewsQue/blob/master/ScreenShorts/ss1.jpg" width = "250" />
 ![App Screenshot](https://github.com/ayush-mahawar26/NewsQue/blob/master/ScreenShorts/ss1.jpg = 400px)
 ![App Screenshot](https://github.com/ayush-mahawar26/NewsQue/blob/master/ScreenShorts/ss2.jpg = 400px)
 ![App Screenshot](https://github.com/ayush-mahawar26/NewsQue/blob/master/ScreenShorts/ss3.jpg = 400px)
