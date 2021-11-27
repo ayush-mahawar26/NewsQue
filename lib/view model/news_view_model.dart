@@ -2,8 +2,19 @@
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class NewsViewModel {
+  void _launchNewsUrl(String newsUrl, BuildContext context) async {
+    if (await canLaunch(newsUrl)) {
+      await launch(newsUrl);
+    } else {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(newsUrl)));
+      print(newsUrl);
+    }
+  }
+
   Widget newsViewModel(String headline, String author, String imgUrl,
       String newsUrl, BuildContext context) {
     return Padding(
@@ -17,6 +28,7 @@ class NewsViewModel {
             ),
             CachedNetworkImage(
               height: MediaQuery.of(context).size.height * 0.2,
+              width: MediaQuery.of(context).size.width - 50,
               progressIndicatorBuilder: (context, url, downloadProgress) =>
                   Center(
                       child: CircularProgressIndicator(
@@ -29,28 +41,42 @@ class NewsViewModel {
               fit: BoxFit.cover,
               errorWidget: (context, url, error) => Icon(Icons.error),
             ),
-            Container(
-              padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
-              child: Text(
-                headline,
-                style: TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.w700,
-                  fontSize: 20,
+            InkWell(
+              onTap: () async {
+                try {
+                  await launch(newsUrl);
+                } catch (e) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text("Can't Launch Url")));
+                  print(e);
+                }
+              },
+              child: Container(
+                padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+                child: Text(
+                  headline,
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 20,
+                  ),
                 ),
               ),
             ),
             Padding(
-              padding: EdgeInsets.fromLTRB(0, 5, 10, 10),
+              padding: EdgeInsets.fromLTRB(10, 5, 0, 10),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Text(
-                    (author == "null") ? "By - Unknown" : "By - $author",
-                    style: TextStyle(
-                      color: Colors.grey[600],
-                      fontSize: 15,
-                      fontWeight: FontWeight.w500,
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.7,
+                    child: Text(
+                      (author == "null") ? "By - Unknown" : "By - $author",
+                      style: TextStyle(
+                        color: Colors.grey[600],
+                        fontSize: 15,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
                   ),
                 ],

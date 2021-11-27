@@ -20,7 +20,7 @@ class NewsProvider with ChangeNotifier {
     String key = apiKey;
     lstNews.clear();
     Response res = await get(Uri.parse(
-        'https://newsapi.org/v2/top-headlines?country=us&category=$category&apiKey=$key'));
+        'https://newsapi.org/v2/top-headlines?country=in&category=$category&apiKey=$key'));
 
     var decodedNewsData = jsonDecode(res.body);
     List newsList = decodedNewsData['articles'];
