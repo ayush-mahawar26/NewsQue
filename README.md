@@ -1,16 +1,35 @@
-# news_app
 
-A new Flutter project.
+# NewsQue App
 
-## Getting Started
+Get Your Daily News On this App. 
+Filter Your News on the basis of Your Interest.
+Categories are - sports , business , entertainment , science , health.
+Open And read the whole News By Clicking On it .
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+## Screenshots
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![App Screenshot](https://github.com/ayush-mahawar26/NewsQue/blob/master/ScreenShorts/ss1.jpg)
+![App Screenshot](https://github.com/ayush-mahawar26/NewsQue/blob/master/ScreenShorts/ss2.jpg)
+![App Screenshot](https://github.com/ayush-mahawar26/NewsQue/blob/master/ScreenShorts/ss3.jpg)
+![App Screenshot](https://github.com/ayush-mahawar26/NewsQue/blob/master/ScreenShorts/ss4.jpg)
+![App Screenshot](https://github.com/ayush-mahawar26/NewsQue/blob/master/ScreenShorts/ss5.jpg)
+
+
+
+## Run Locally
+
+Clone the project
+
+```bash
+  git clone https://github.com/ayush-mahawar26/NewsQue
+```
+
+Go to the project directory
+
+```bash
+  cd this-project
+```
+
+
